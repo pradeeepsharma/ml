@@ -21,8 +21,8 @@ grad = zeros(size(theta));
 %
 h=sigmoid(X*theta);
 probOneTerm=(y*log(h));
-probZeroTerm=((1-y))*log(1-h);
-J = -(1/m)*(probOneTerm+probZeroTerm);
+probZeroTerm=(1-y)*log(1-h);
+J = (1/m)*(-probOneTerm-probZeroTerm);
 
 
 
