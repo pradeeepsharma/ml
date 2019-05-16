@@ -38,7 +38,15 @@ grad = zeros(size(theta));
 
 
 
+h=sigmoid(X*theta);
+probOneTerm=((y')*log(h));
+probZeroTerm=((1-y)')*log(1-h);
+thetaWithoutZero = theta(2:end);
+J = (1/m)*(-probOneTerm-probZeroTerm)+ (lambda/(2*m)) *(thetaWithoutZero'*thetaWithoutZero);
 
+thetaTemp = theta;
+thetaTemp(1) = 0
+grad = (((1/m)*X')*((sigmoid(X*theta))-y))+ (lambda/m)*thetaTemp;
 
 
 
