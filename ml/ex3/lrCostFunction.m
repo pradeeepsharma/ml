@@ -45,7 +45,7 @@ thetaWithoutZero = theta(2:end);
 J = (1/m)*(-probOneTerm-probZeroTerm)+ (lambda/(2*m)) *(thetaWithoutZero'*thetaWithoutZero);
 
 thetaTemp = theta;
-thetaTemp(1) = 0
+thetaTemp(1) = 0;
 grad = (((1/m)*X')*((sigmoid(X*theta))-y))+ (lambda/m)*thetaTemp;
 
 

@@ -20,14 +20,12 @@ p = zeros(size(X, 1), 1);
 %       information see 'help max'. If your examples are in rows, then, you
 %       can use max(A, [], 2) to obtain the max for each row.
 %
-
-
-
-
-
-
-
-
+X=[ones(size(X,1),1) X];
+secondLayerActivationUnits = sigmoid(Theta1*X');
+secondLayerActivationUnits= secondLayerActivationUnits';
+secondLayerActivationUnits=[ones(size(secondLayerActivationUnits,1),1) secondLayerActivationUnits];
+hVector=sigmoid(secondLayerActivationUnits*Theta2');
+[q,p] = max(hVector,[], 2);
 
 % =========================================================================
 
