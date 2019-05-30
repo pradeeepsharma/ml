@@ -71,8 +71,9 @@ a3=sigmoid(a2WithBias*Theta2');
 y_matrix=eye(num_labels)(y,:);
 probOneTerm=(y_matrix.*log(a3));
 probZeroTerm=(1-y_matrix).*log(1-a3);
-%thetaWithoutZero = theta(2:end);
-J = (1/m)*(-probOneTerm-probZeroTerm);%+ (lambda/(2*m)) *(a1'*a1);
+
+
+J = -(1/m)*sum(sum(probOneTerm+probZeroTerm))+ (lambda/(2*m)) *(sum(sum(Theta1(:,2:end).^2))'+sum(sum(Theta2(:,2:end).^2)));
 
 %thetaTemp = theta;
 %thetaTemp(1) = 0;
