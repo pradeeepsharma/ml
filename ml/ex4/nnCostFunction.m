@@ -64,16 +64,20 @@ Theta2_grad = zeros(size(Theta2));
 
 %https://www.coursera.org/learn/machine-learning/programming/AiHgN/neural-network-learning/discussions/threads/QFnrpQckEeWv5yIAC00Eog
 
-a1 = [ones(size(X,1),1) X];
-a2=sigmoid(a1*Theta1');
-a2WithBias = [ones(size(a2,1),1) a2];
-a3=sigmoid(a2WithBias*Theta2');
+Z1 = ([ones(size(X,1),1) X])*Theta1';
+a1=sigmoid(Z1);
+a1WithBias = [ones(size(a1,1),1) a1];
+Z2 = a1WithBias*Theta2';
+a2=sigmoid(Z2);
 y_matrix=eye(num_labels)(y,:);
-probOneTerm=(y_matrix.*log(a3));
-probZeroTerm=(1-y_matrix).*log(1-a3);
+probOneTerm=(y_matrix.*log(a2));
+probZeroTerm=(1-y_matrix).*log(1-a2);
 
 
 J = -(1/m)*sum(sum(probOneTerm+probZeroTerm))+ (lambda/(2*m)) *(sum(sum(Theta1(:,2:end).^2))'+sum(sum(Theta2(:,2:end).^2)));
+
+%D3 = a3-y_matrix;
+%z2=a1*Theta1;
 
 %thetaTemp = theta;
 %thetaTemp(1) = 0;
