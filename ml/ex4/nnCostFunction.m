@@ -103,13 +103,19 @@ D2=tempDel2.*sigmoidGradient(Z1);
 Delta1=0;
 %Size(Delta1) :25*401
 Delta1=Delta1+((D2')*a1);
-
-Delta2=0;
-%Size(Delta2):
-Delta2=Delta2+((D3') *a2WithBias);
-
 Theta1_grad = (1/m)* Delta1;
-Theta2_grad = (1/m)*Delta2;
+Delta2=0;
+%Size(Delta2):26*10
+Delta2=Delta2+((D3') *a2WithBias);
+Theta2_grad = (1/m)* Delta2;
+
+%Theta1WithoutBias = Theta1(:,2:end);
+%Delta1WithoutBias = Delta1(:,2:end);
+%Theta1_grad = (1/m)* Delta1WithoutBias + ((lambda/m)*Theta1WithoutBias);
+
+%Theta2WithoutBias = Theta2(:,2:end);
+%Delta2WithoutBias = Delta2(:,2:end);
+%Theta2_grad = (1/m)* Delta2WithoutBias + ((lambda/m)*Theta2WithoutBias);
 
 
 
