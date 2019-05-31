@@ -63,19 +63,27 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 %https://www.coursera.org/learn/machine-learning/programming/AiHgN/neural-network-learning/discussions/threads/QFnrpQckEeWv5yIAC00Eog
+%Size(y_matrix):5000*10
 y_matrix=eye(num_labels)(y,:);
-%fprintf('Size of y_matrix :'+size(y_matrix));
-a1 = [ones(size(X,1),1) X];
-fprintf('Size of a1 :',size(a1));
 
+%Size(a1):5000*401
+a1 = [ones(size(X,1),1) X];
+
+%Size(Z1):5000*25
 Z1 = a1*Theta1';
+
+%Size(a):5000*25
 a2=sigmoid(Z1);
-fprintf('Size of a2 :',size(a2));
+
+%Size(a2WithBias):5000*26
 a2WithBias = [ones(size(a2,1),1) a2];
 
+%Size(Z2):5000*10
 Z2 = a2WithBias*Theta2';
+
+%Size(a3):5000*10
 a3=sigmoid(Z2);
-fprintf('Size of a3 :',size(a3));
+
 
 probOneTerm=(y_matrix.*log(a3));
 probZeroTerm=(1-y_matrix).*log(1-a3);
@@ -83,15 +91,26 @@ probZeroTerm=(1-y_matrix).*log(1-a3);
 
 J = -(1/m)*sum(sum(probOneTerm+probZeroTerm))+ (lambda/(2*m)) *(sum(sum(Theta1(:,2:end).^2))'+sum(sum(Theta2(:,2:end).^2)));
 
-%D3 = a3-y_matrix;
-%fprintf('Size of D3 :',size(D3));
-%D2=(Theta2'*D3).*sigmoidGradient(Z2);
-%fprintf('Size of D2 :',size(D2));
+%Size(D3):5000*10
+D3 = a3-y_matrix;
 
+tempDel2 = (D3*Theta2);
+tempDel2=tempDel2(:,2:end);
 
-%thetaTemp = theta;
-%thetaTemp(1) = 0;
-%grad = (((1/m)*X')*((sigmoid(X*theta))-y))+ (lambda/m)*thetaTemp;
+%Size(D2)=5000*25
+D2=tempDel2.*sigmoidGradient(Z1);
+
+Delta1=0;
+%Size(Delta1) :25*401
+Delta1=Delta1+((D2')*a1);
+
+Delta2=0;
+%Size(Delta2):
+Delta2=Delta2+((D3') *a2WithBias);
+
+Theta1_grad = (1/m)* Delta1;
+Theta2_grad = (1/m)*Delta2;
+
 
 
 
