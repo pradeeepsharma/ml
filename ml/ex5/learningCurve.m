@@ -52,13 +52,29 @@ error_val   = zeros(m, 1);
 %
 
 % ---------------------- Sample Solution ----------------------
-lambda = 0;
-[theta_train] = trainLinearReg([ones(m, 1) X], y, lambda);
-error_train = linearRegCostFunction(X,y,theta_train,lambda);
+
+%theta_train = [];
+
+for i=1:m
+   [theta] = trainLinearReg(X(1:i,:), y(1:i), lambda);
+   
+   [J] = linearRegCostFunction(X(1:i,:),y(1:i),theta,0);
+   error_train(i) = J;
+  
+   [J] = linearRegCostFunction(Xval,yval,theta,0); 
+   error_val(i) = J;
+
+endfor  
+%[theta_train] = trainLinearReg([ones(m, 1) X], y, 0);
+
+%[error_train, error_grad] = linearRegCostFunction(X,y,theta_train(2,:),0);
 
 
-[theta_val] = trainLinearReg([ones(m, 1) Xval], yval, lambda);
-error_val = linearRegCostFunction(Xval,yval,theta_val,lambda);
+
+
+%[theta_val] = trainLinearReg([ones(m, 1) Xval], yval, lambda);
+
+%[error_val, val_grad] = linearRegCostFunction(Xval,yval,theta_val,lambda);
 
 
 

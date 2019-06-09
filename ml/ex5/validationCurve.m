@@ -38,7 +38,16 @@ error_val = zeros(length(lambda_vec), 1);
 %       end
 %
 %
-
+    for i = 1:length(lambda_vec)
+           lambda = lambda_vec(i);
+           [error_train, error_val] = learningCurve(X,y,Xval,yval,lambda);
+           error_train(i) = error_train;
+           error_val(i) = error_val;
+           % Compute train / val errors whe n training linear 
+           % regression with regularization parameter lambda
+           % You should store the result in error_train(i)
+           % and error_val(i)
+    end
 
 
 
