@@ -27,7 +27,7 @@ centroids = zeros(K, n);
 %
   for k=1:K
     centroid_count = 0;
-    centroid_total = [0,0];
+    centroid_total = zeros(1,n);
     for i=1:m
       if(k==idx(i))
         centroid_count = centroid_count+1;
