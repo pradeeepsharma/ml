@@ -14,9 +14,11 @@ Z = zeros(size(X, 1), K);
 %               eigenvectors in U (first K columns). 
 %               For the i-th example X(i,:), the projection on to the k-th 
 %               eigenvector is given as follows:
-%                    x = X(i, :)';
-%                    projection_k = x' * U(:, k);
-%
+for i=1:size(X,1)
+                   x = X(i, :)';
+endfor                   
+                   Z = x' * U(:,1:k);
+
 
 
 

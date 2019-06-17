@@ -31,11 +31,11 @@ centroids = zeros(K, n);
     for i=1:m
       if(k==idx(i))
         centroid_count = centroid_count+1;
-        centroid_total = centroid_total.+X(i,:);
+        centroid_total = centroid_total+X(i,:);
       endif  
     endfor
-    centroid_total = 1/centroid_count*(centroid_total);
-    centroids = [centroids;centroid_total];
+    centroid_total = (1/centroid_count)*(centroid_total);
+    centroids(k,:) = centroid_total;
   endfor
 
 
