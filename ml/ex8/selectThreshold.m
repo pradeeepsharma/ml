@@ -24,7 +24,7 @@ for epsilon = min(pval):stepsize:max(pval)
     %       of 0's and 1's of the outlier predictions
 
 predictions = (pval < epsilon);
-Tp =  sum(yval-predictions==0);
+Tp =  sum(yval+predictions==2);
 Fp = sum(yval-predictions<0);
 Fn = sum(yval-predictions>0);
 precision = Tp/(Tp+Fp);
