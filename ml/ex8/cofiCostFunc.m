@@ -40,16 +40,17 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+predicted_movie_ratings = X*Theta';
+movie_rating_error = predicted_movie_ratings- Y;
+error_factor = R.*movie_rating_error;
+reg_param_term = (lambda/2)*sum(Theta(:).^2);
+reg_feature_term = (lambda/2)*sum(X(:).^2);
+J = 1/2*(sum(sum(error_factor.^2)))+reg_param_term+reg_feature_term;
 
-J = 1/2*(sum(sum(R.*(((X*Theta') - Y).^2))));
-
-for i=1:size(X,1)
-idx = find(R(i, :)==1);
-%X_temp = X(idx;:);
-Theta_temp = Theta(idx; :);
-Y_temp = Y(i; idx);
-Xgrad(i; :) = (X(i; :)*Theta_temp'-Y_temp)*Theta_temp;
-endfor
+X_grad_reg_term = lambda*X;
+Theta_grad_reg_term = lambda*Theta;
+X_grad = error_factor*Theta+X_grad_reg_term;
+Theta_grad =error_factor'*X+Theta_grad_reg_term;
 
 
 
